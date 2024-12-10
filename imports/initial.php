@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE php>
 <html lang="en">
 
 <head>
@@ -10,4 +10,3 @@
 </head>
 
 <body>
-    
