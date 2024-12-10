@@ -24,11 +24,5 @@
                 Modificar producto
             </a>
         </li>
-        <li>
-            <a href="/gestor-products/?page=listProduct" class="nav-link text-secondary">
-                <i class="bi bi-list-ul"></i>
-                Listar productos
-            </a>
-        </li>
     </ul>
 </nav>

@@ -3,8 +3,10 @@ require_once './configs/db.php';
 
 require_once './imports/initial.php';
 require_once './components/header.php';
-
-if (isset($_GET['page'])) {
+?>
+<main style="min-height: 100vh;">
+<?php
+if (isset($_GET['page']) or isset($_POST['page'])) {
     $page = $_GET['page'];
     switch ($page) {
         case 'addProduct':
@@ -19,14 +21,13 @@ if (isset($_GET['page'])) {
             include_once './updateProducts.php';
             break;
 
-        case 'listProduct':
+        default:
             include_once './listProduct.php';
             break;
-            
-        default:
-            break;
     }
-}
-
+} else include_once './listProduct.php';
+?>
+</main>
+<?php
 require_once './components/footer.php';
 require_once './imports/end.php';
