@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 } else {
-    // Si no es post muestro el formulario
+    // En caso de que le pase el id por parámetro cargo los datos
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
         $sql = 'SELECT * FROM productos WHERE id_producto = ?';
@@ -82,7 +82,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Algo a fallado al intentar opener los datos';
         } else {
             $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
+
+            // Si no hay respuesta mostrara un mensaje de error y eliminar la variable id
+            if ($result->num_rows == 0) {
+                $error = 'No existe el producto con el id '.$id;
+                unset($id);
+            } else {
+                $row = $result->fetch_assoc();
+            }
+            
         }
     }
 }
@@ -103,9 +111,11 @@ if (isset($error)) {
 ?>
 <form action="<?= $_SERVER['PHP_SELF'] ?>?page=updateProducts" method="POST" enctype="multipart/form-data">
     <?php
+    // Si el id existe, mando el id y el nombre de la fotografía ocultos
     if (isset($id)) {
     ?>
         <input type="hidden" name="id" value="<?= $id ?>">
+        <input type="hidden" name="nameImg" value="<?= $row['fotografia'] ?>">
     <?php
     } else {
     ?>
