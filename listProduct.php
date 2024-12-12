@@ -60,7 +60,7 @@ if (isset($error)) {
                         </div>
                         <div class="col-1 text-center">
                             <!-- TODO hacer eliminado -->
-                            <a href=""><i class="bi bi-x-square text-danger fs-5 cursor-pointer" title="Eliminar" style="cursor: pointer;"></i></a>
+                            <a href="?page=deleteProducts&id=<?= $row['id_producto'] ?>"><i class="bi bi-x-square text-danger fs-5 cursor-pointer" title="Eliminar" style="cursor: pointer;"></i></a>
                         </div>
                     </div>
                 </li>

@@ -18,11 +18,5 @@
                 Modificar producto
             </a>
         </li>
-        <li>
-            <a href="/gestor-products/?page=deleteProducts" class="nav-link text-secondary">
-                <i class="bi bi-x-square"></i>
-                Eliminar producto
-            </a>
-        </li>
     </ul>
 </nav>

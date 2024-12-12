@@ -1,10 +1,6 @@
 <?php
 session_start();
-
-// Create conexión
-$MYSQL_USER='user';
-$MYSQL_PASSWORD='user_password';
-$MYSQL_DATABASE='my_database';
+require_once 'config.php';
 
 $conn = new mysqli("db", $MYSQL_USER, $MYSQL_PASSWORD, $MYSQL_DATABASE);
 
