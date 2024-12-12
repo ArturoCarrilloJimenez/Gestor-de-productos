@@ -1,6 +1,9 @@
 <?php
 ob_start(); // Inicia el buffer de salida
 require_once './configs/db.php';
+require_once 'configs/functionsDb.php';
+
+$functionDb = new Database($conn);
 
 require_once './imports/initial.php';
 require_once './components/header.php';

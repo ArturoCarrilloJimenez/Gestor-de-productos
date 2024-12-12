@@ -41,8 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!isset($error)) {
-        echo 'Todo correcto';
-
         // Inserto el producto en la vase de datos
         if (isset($_FILES['imagen'])) {
             $sql = 'UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, fotografia = ? WHERE id_producto = ?';
