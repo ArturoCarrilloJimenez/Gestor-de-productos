@@ -14,22 +14,22 @@ require_once './components/header.php';
         $page = $_GET['page'];
         switch ($page) {
             case 'addProduct':
-                include_once './addProduct.php';
+                include_once './products/addProduct.php';
                 break;
 
             case 'deleteProducts':
-                include_once './deleteProducts.php';
+                include_once './products/deleteProducts.php';
                 break;
 
             case 'updateProducts':
-                include_once './updateProducts.php';
+                include_once './products/updateProducts.php';
                 break;
 
             default:
-                include_once './listProduct.php';
+                include_once './products/listProduct.php';
                 break;
         }
-    } else include_once './listProduct.php';
+    } else include_once './products/listProduct.php';
     ?>
 </main>
 <?php
