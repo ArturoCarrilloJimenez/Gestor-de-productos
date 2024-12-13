@@ -62,32 +62,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Formulario -->
 
-<h2 class="text-center">Añadir producto</h2>
-<hr>
-<?php
-if (isset($error)) {
-?>
-    <div class="alert alert-secondary" role="alert">
-        <?= $error ?>
+<h2 class="text-center mb-4">Añadir Producto</h2>
+<hr class="mb-4">
+
+<?php if (isset($error)) : ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php
-}
-?>
-<form action="<?= $_SERVER['PHP_SELF'] ?>?page=addProduct" method="POST" enctype="multipart/form-data">
+<?php endif; ?>
+
+<form action="<?= $_SERVER['PHP_SELF'] ?>?page=addProduct" method="POST" enctype="multipart/form-data" class="p-4 shadow rounded bg-light">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" name="name" id="name" placeholder="name" required>
-        <label for="name">Nombre de producto</label>
+        <label for="name">Nombre del Producto</label>
     </div>
-    <div class="mb-3">
+
+    <div class="form-floating mb-3">
+        <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Escribe aquí la descripción" style="height: 150px;"></textarea>
         <label for="descripcion">Descripción</label>
-        <textarea name="descripcion" id="descripcion" class="w-100 form-control" placeholder="Escribe aquí la descripción"></textarea>
     </div>
+
     <div class="input-group mb-3">
-        <span class="input-group-text" id="precio">Precio</span>
-        <input type="number" class="form-control" name="precio" placeholder="Precio" aria-label="precio" aria-describedby="basic-addon1" required>
+        <span class="input-group-text">Precio</span>
+        <input type="number" class="form-control" name="precio" placeholder="Introduce el precio" aria-label="Precio" required>
     </div>
+
     <div class="mb-3">
-        <input type="file" class="form-control" name="imagen" placeholder="Imagen" aria-label="imagen" aria-describedby="basic-addon1" accept="<?= $acceptExtension ?>" required>
+        <label for="imagen" class="form-label">Imagen del Producto</label>
+        <input type="file" class="form-control" name="imagen" id="imagen" accept="<?= $acceptExtension ?>" required>
     </div>
-    <button type="submit" class="btn btn-dark w-100">Añadir</button>
+
+    <button type="submit" class="btn btn-dark w-100">Añadir Producto</button>
 </form>

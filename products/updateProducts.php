@@ -83,12 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Si no hay respuesta mostrara un mensaje de error y eliminar la variable id
             if ($result->num_rows == 0) {
-                $error = 'No existe el producto con el id '.$id;
+                $error = 'No existe el producto con el id ' . $id;
                 unset($id);
             } else {
                 $row = $result->fetch_assoc();
             }
-            
         }
     }
 }
@@ -96,67 +95,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Formulario -->
 
-<h2 class="text-center">Editar producto</h2>
-<hr>
-<?php
-if (isset($error)) {
-?>
-    <div class="alert alert-secondary" role="alert">
-        <?= $error ?>
+<h2 class="text-center mb-4">Editar Producto</h2>
+<hr class="mb-4">
+
+<?php if (isset($error)) : ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php
-}
-?>
-<form action="<?= $_SERVER['PHP_SELF'] ?>?page=updateProducts" method="POST" enctype="multipart/form-data">
-    <?php
-    // Si el id existe, mando el id y el nombre de la fotografía ocultos
-    if (isset($id)) {
-    ?>
+<?php endif; ?>
+
+<form action="<?= $_SERVER['PHP_SELF'] ?>?page=updateProducts" method="POST" enctype="multipart/form-data" class="p-4 shadow rounded bg-light">
+    <?php if (isset($id)) : ?>
         <input type="hidden" name="id" value="<?= $id ?>">
-        <input type="hidden" name="nameImg" value="<?= $row['fotografia'] ?>">
-    <?php
-    } else {
-    ?>
+        <input type="hidden" name="nameImg" value="<?= htmlspecialchars($row['fotografia'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+    <?php else : ?>
         <div class="form-floating mb-3">
-            <input type="number" class="form-control" name="id" id="id" placeholder="id" required>
-            <label for="id">Id</label>
+            <input type="number" class="form-control" name="id" id="id" placeholder="ID" required>
+            <label for="id">ID</label>
         </div>
-    <?php
-    }
-    ?>
+    <?php endif; ?>
+
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="name" id="name" placeholder="name" <?php if (isset($row)) { ?> value="<?= $row['nombre'] ?>" <?php } ?> required>
-        <label for="name">Nombre de producto</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Nombre del producto" value="<?= htmlspecialchars($row['nombre'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
+        <label for="name">Nombre del Producto</label>
     </div>
-    <div class="mb-3">
+
+    <div class="form-floating mb-3">
+        <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Descripción del producto" style="height: 150px;"><?= htmlspecialchars($row['descripcion'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
         <label for="descripcion">Descripción</label>
-        <textarea name="descripcion" id="descripcion" class="w-100 form-control" placeholder="Escribe aquí la descripción"><?php if (isset($row)) {echo $row['descripcion'];} ?></textarea>
     </div>
+
     <div class="input-group mb-3">
-        <span class="input-group-text" id="precio">Precio</span>
-        <input type="number" class="form-control" name="precio" placeholder="Precio" aria-label="precio" aria-describedby="basic-addon1" <?php if (isset($row)) { ?> value="<?= $row['precio'] ?>" <?php } ?> required>
+        <span class="input-group-text">Precio</span>
+        <input type="number" class="form-control" name="precio" placeholder="Precio" value="<?= htmlspecialchars($row['precio'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
     </div>
+
     <div>
-        <input type="file" class="form-control" name="imagen" placeholder="Imagen" aria-label="imagen" aria-describedby="basic-addon1" disabled>
+        <input type="file" class="form-control" name="imagen" id="imagen" accept="<?= $acceptExtension ?>" disabled>
         <div class="form-check my-3">
-            <input class="form-check-input" type="checkbox" value="modify" name="editImg" id="defaultCheck1">
-            <label class="form-check-label text-muted" for="defaultCheck1">Cambiar imagen</label>
+            <input class="form-check-input" type="checkbox" value="modify" name="editImg" id="editImg">
+            <label class="form-check-label text-muted" for="editImg">Cambiar Imagen</label>
         </div>
     </div>
+
     <button type="submit" class="btn btn-dark w-100">Editar</button>
 </form>
 
 <script>
-    const editImg = document.getElementById('defaultCheck1');
-    const inputImg = document.querySelector('input[type="file"]');
+    document.addEventListener('DOMContentLoaded', () => {
+        const editImg = document.getElementById('editImg');
+        const inputImg = document.getElementById('imagen');
 
-    // Habilito o deshabilito el input de la imagen
-    editImg.addEventListener('change', () => {
-        if (editImg.checked) {
-            inputImg.removeAttribute('disabled');
-            inputImg.setAttribute('required', 'true');
-        } else {
-            inputImg.setAttribute('disabled', 'true');
-        }
+        // Habilitar o deshabilitar el input de la imagen
+        editImg.addEventListener('change', () => {
+            if (editImg.checked) {
+                inputImg.removeAttribute('disabled');
+                inputImg.setAttribute('required', 'true');
+            } else {
+                inputImg.setAttribute('disabled', 'true');
+                inputImg.removeAttribute('required');
+            }
+        });
     });
 </script>

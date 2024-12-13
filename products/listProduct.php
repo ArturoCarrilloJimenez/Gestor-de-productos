@@ -14,7 +14,7 @@ if (isset($error)) {
 ?>
 
     <ul class="list-group text-center">
-        <li class="list-group-item list-group-item-dark">
+        <li class="list-group-item shadow list-group-item-dark">
             <div class="row">
                 <div class="col-1">Id</div>
                 <div class="col-2">Nombre</div>
@@ -41,7 +41,7 @@ if (isset($error)) {
 
         while ($row = $result->fetch_assoc()) {  // Usamos fetch_assoc() para obtener una fila
         ?>
-            <li class="list-group-item p-3 shadow-sm rounded-3">
+            <li class="list-group-item p-3 shadow rounded-3">
                 <div class="row align-items-center fs-6">
                     <div class="col-1 text-center fw-bold"><?= $row['id_producto'] ?></div>
                     <div class="col-2 text-truncate"><?= $row['nombre'] ?></div>
