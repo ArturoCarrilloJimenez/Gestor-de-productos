@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nameImg = $_FILES['imagen']['name'];
         $filesSize = $_FILES['imagen']['size'];
         $dirTemp = $_FILES['imagen']['tmp_name'];
+        $image = file_get_contents($dirTemp); // Obtengo el contenido del archivo
         $tipoArchivo = $_FILES['imagen']['type'];
         $arrayImg = pathinfo($nameImg);
         $extension = $arrayImg['extension'];
@@ -56,7 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Preparo la consulta
         if (isset($_FILES['imagen'])) {
-            $stmt->bind_param('ssssi', $name, $descripcion, $precio, $nameImg, $id);
+            $stmt->bind_param('ssibi', $name, $descripcion, $precio, $null, $id);
+
+            // Enlazo el parámetro binario manualmente
+            $stmt->send_long_data(3, $image);
         } else {
             $stmt->bind_param('sssi', $name, $descripcion, $precio, $id);
         }

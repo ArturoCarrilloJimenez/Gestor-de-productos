@@ -20,9 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nameImg = $_FILES['imagen']['name'];
         $filesSize = $_FILES['imagen']['size'];
         $dirTemp = $_FILES['imagen']['tmp_name'];
+        $image = file_get_contents($dirTemp); // Obtengo el contenido del archivo
         $tipoArchivo = $_FILES['imagen']['type'];
         $arrayImg = pathinfo($nameImg);
         $extension = $arrayImg['extension'];
+        /* Cargamos el contenido del archivo en la variable */
 
         if (!in_array($extension, $extensionesValidas)) {
             $error = 'Extension no valida';
@@ -47,7 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Preparo la consulta
-            $stmt->bind_param('ssis', $name, $descripcion, $precio, $nameImg);
+            $stmt->bind_param('ssib', $name, $descripcion, $precio, $null);
+
+            // Enlazo el parámetro binario manualmente
+            $stmt->send_long_data(3, $image);
 
             if ($stmt->execute()) {
                 header('Location: index.php');
