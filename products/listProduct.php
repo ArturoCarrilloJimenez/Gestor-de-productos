@@ -48,7 +48,7 @@ if (isset($error)) {
                         <div class="col-4 text-muted text-truncate"><?= $row['descripcion'] ?></div>
                         <div class="col-2 fw-semibold"><?= $row['precio'] ?>€</div>
                         <div class="col-1 text-center">
-                            <img src="functions/mostrarImg.php?id=<?= $row['id_producto'] ?>" alt="Imagen del Producto" class="img-fluid rounded" style="max-height: 50px;">
+                        <img src="data:image/jpeg;base64,<?= base64_encode($row['fotografia']) ?>" alt="Imagen del Producto" class="img-fluid rounded" style="max-height: 50px;">
                         </div>
                         <div class="col-1 text-center">
                             <a href="?page=updateProducts&id=<?= $row['id_producto'] ?>"><i class="bi bi-pencil-square text-success fs-5 cursor-pointer" title="Editar" style="cursor: pointer;"></i></a>
